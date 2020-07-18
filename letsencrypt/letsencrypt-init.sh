@@ -92,7 +92,7 @@ docker run -it --rm \
     certbot/certbot \
     certonly \
     --webroot --webroot-path=/data/letsencrypt \
-    -d ${FQDN_OR_IP} -d www.${FQDN_OR_IP}
+    -d ${FQDN_OR_IP} -d mycar.${FQDN_OR_IP} -d forecast.${FQDN_OR_IP}
 
 cd ${REPO_DIR}
 docker-compose stop
