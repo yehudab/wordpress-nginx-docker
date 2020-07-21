@@ -52,3 +52,9 @@ services:
       - mysql
     ports:
       - 8080:8080
+
+  cli:
+    image: wordpress:cli
+    volumes:
+      - ${WORDPRESS_DATA_DIR:-./yehudab.com}:/var/www/html
+    working_dir: /var/www/html/blog

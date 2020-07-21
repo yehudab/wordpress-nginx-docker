@@ -497,6 +497,12 @@ A script named `stop-and-remove.sh` has been provided to run these commands for 
 
 ## <a name="opt-config"></a>Optional Configuration
 
+### Running WP CLI
+
+```
+sudo docker-compose run --rm --user 1000:1000 cli bash
+```
+
 ### Environment Variables
 
 WordPress environment variables. See the [official image](https://hub.docker.com/_/wordpress/) for additional information.
