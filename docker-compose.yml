@@ -1,34 +1,6 @@
 version: '3.8'
 services:
 
-  wordpress:
-    image: wordpress:${WORDPRESS_VERSION:-php7.3-fpm}
-    container_name: wordpress
-    volumes:
-      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./yehudab.com:/var/www/html
-    environment:
-      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}
-      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX:-wp_}
-      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mysql}
-      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-root}
-      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-password}
-    depends_on:
-      - mysql
-    restart: always
-
-  mysql:
-    image: mariadb:${MARIADB_VERSION:-latest}
-    container_name: mysql
-    volumes:
-      - ./mysql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}
-      - MYSQL_USER=${MYSQL_USER:-root}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
-    restart: always
-
   nginx:
     image: nginx:${NGINX_VERSION:-latest}
     container_name: nginx
@@ -41,20 +13,4 @@ services:
       - ${WORDPRESS_DATA_DIR:-./yehudab.com}:/var/www/html
       - ${SSL_CERTS_DIR:-./certs}:/etc/letsencrypt
       - ${SSL_CERTS_DATA_DIR:-./certs-data}:/data/letsencrypt
-    depends_on:
-      - wordpress
     restart: always
-
-  adminer:
-    image: adminer
-    restart: always
-    links:
-      - mysql
-    ports:
-      - 8080:8080
-
-  cli:
-    image: wordpress:cli
-    volumes:
-      - ${WORDPRESS_DATA_DIR:-./yehudab.com}:/var/www/html
-    working_dir: /var/www/html/blog
