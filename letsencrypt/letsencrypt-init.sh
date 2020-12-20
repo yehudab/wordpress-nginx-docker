@@ -36,7 +36,7 @@ _lets_encrypt_conf () {
 server {
     listen      80;
     listen [::]:80;
-    server_name ${FQDN_OR_IP};
+    server_name mycar.${FQDN_OR_IP};
 
     location / {
         rewrite ^ https://\$host\$request_uri? permanent;
@@ -92,7 +92,7 @@ docker run -it --rm \
     certbot/certbot \
     certonly \
     --webroot --webroot-path=/data/letsencrypt \
-    -d ${FQDN_OR_IP} -d mycar.${FQDN_OR_IP} -d forecast.${FQDN_OR_IP} -d staticman.${FQDN_OR_IP} -d ackee.${FQDN_OR_IP}
+    -d mycar.${FQDN_OR_IP} -d forecast.${FQDN_OR_IP} -d staticman.${FQDN_OR_IP} -d ackee.${FQDN_OR_IP}
 
 cd ${REPO_DIR}
 docker-compose stop
