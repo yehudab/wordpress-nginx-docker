@@ -13,6 +13,7 @@ services:
       - ${NGINX_LOG_DIR:-./logs/nginx}:/var/log/nginx
       - ${WORDPRESS_DATA_DIR:-./yehudab.com}:/var/www/html
       - ./apps:/var/www/apps
+      - ../picoclaw/docker/data/solver-images:/var/www/apps/solver-images
       - ${SSL_CERTS_DIR:-./certs}:/etc/letsencrypt
       - ${SSL_CERTS_DATA_DIR:-./certs-data}:/data/letsencrypt
     restart: always
