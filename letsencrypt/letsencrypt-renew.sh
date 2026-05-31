@@ -49,7 +49,11 @@ docker run -t --rm \
     --webroot --webroot-path=/data/letsencrypt
 
 cd ${REPO_DIR}
-docker-compose kill -s HUP nginx
+# Reload nginx so it picks up the renewed certificate. Use the docker CLI
+# directly (the container is named "nginx") rather than the bundled
+# docker-compose v1, whose API client is too old for the current engine and
+# fails silently in cron, leaving nginx serving the expired cert.
+docker kill -s HUP nginx
 cd ${LE_DIR}
 
 exit 0;
